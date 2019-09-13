@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://scripts/area_test.gd" type="Script" id=1]
+[ext_resource path="res://product_image.jpg" type="Texture" id=2]
+[ext_resource path="res://music/BoxCat_Games_-_04_-_B-3 (online-audio-converter.com).ogg" type="AudioStream" id=3]
+[ext_resource path="res://music/BoxCat_Games_-_08_-_CPU_Talk.ogg" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 280.971 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 360, 10 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 849.939, 10 )
+
+[node name="area_test" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="muros" type="StaticBody2D" parent="."]
+editor/display_folded = true
+collision_layer = 2
+
+[node name="muro" type="CollisionShape2D" parent="muros"]
+position = Vector2( 50, 260 )
+shape = SubResource( 1 )
+
+[node name="muro3" type="CollisionShape2D" parent="muros"]
+position = Vector2( -40, -270 )
+rotation = -0.355062
+shape = SubResource( 1 )
+
+[node name="muro4" type="CollisionShape2D" parent="muros"]
+position = Vector2( 520, -270 )
+rotation = 0.293588
+shape = SubResource( 1 )
+
+[node name="muro2" type="CollisionShape2D" parent="muros"]
+position = Vector2( 440.143, 270 )
+shape = SubResource( 1 )
+
+[node name="murosdf3" type="CollisionShape2D" parent="muros"]
+position = Vector2( 240, -540 )
+rotation = 3.14159
+shape = SubResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="muros"]
+position = Vector2( 0, -20 )
+polygon = PoolVector2Array( 50, 540, 250, 630, 440, 540, 380, 680, 250, 660, 120, 680 )
+
+[node name="contador" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 230, 200 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="shape" type="CollisionPolygon2D" parent="contador"]
+polygon = PoolVector2Array( -150, -200, -150.623, 325.958, 19.377, 395.958, 189.377, 325.958, 190, -200 )
+
+[node name="area_de_segurança" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 240, 780 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="area_de_segurança"]
+position = Vector2( 20, -5.25458 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="area_de_segurança"]
+position = Vector2( 20, -1690 )
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="area_de_segurança"]
+position = Vector2( 860, -860 )
+rotation = 1.57367
+shape = SubResource( 3 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="area_de_segurança"]
+position = Vector2( -800, -860 )
+rotation = 1.57367
+shape = SubResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[node name="background" type="Sprite" parent="."]
+scale = Vector2( 0.852575, 0.725 )
+z_index = -1
+texture = ExtResource( 2 )
+centered = false
+
+[node name="playback" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = -10.0
+autoplay = true
+
+[node name="som_especial" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+[connection signal="body_entered" from="contador" to="." method="_on_contador_body_entered"]
+[connection signal="body_exited" from="contador" to="." method="_on_contador_body_exited"]
+[connection signal="body_entered" from="area_de_segurança" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
